@@ -1,0 +1,301 @@
+<style>
+    h3, h4 {
+       margin-top: 0px !important;
+    }
+</style>
+<div class="container" >
+    <h3 id="DefinitionList"><a id="sec-4-1-20" name="sec-4-1-20"></a>Definition</h3>
+    <div class="outline-text-4" id="text-DefinitionList">
+
+
+        <!--div class="figure">
+            <p><img src="./image/sDefList.png" alt="sDefList.png">
+            </p>
+            <p><span class="figure-number">Figure 16:</span> Definition list</p>
+        </div-->
+
+        <p>
+            Google pie chart.
+            (<a href="https://developers.google.com/chart/interactive/docs/gallery/piechart">see the doc of Google</a>)
+        </p>
+        <h4>
+            Data format
+        </h4>
+        <p>
+            Each row in the table represents a slice. <a href="https://developers.google.com/chart/interactive/docs/gallery/piechart#data-format">see details</a>
+        </p>
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+            <thead>
+            <tr>
+                <th scope="col" class="left">Column</th>
+                <th scope="col" class="left">Type</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="left">0</td>
+                <td class="left">string</td>
+                <td class="left">Slice labels</td>
+            </tr>
+            <tr>
+                <td class="left">1</td>
+                <td class="left">Number</td>
+                <td class="left">Slice values</td>
+            </tr>
+            <tr>
+                <td class="left">N</td>
+                <td class="left"></td>
+                <td class="left">Optional roles. <a href="https://developers.google.com/chart/interactive/docs/roles">see details</a></td>
+            </tr>
+            </tbody>
+        </table>
+        <h4>
+            Chart options
+        </h4>
+        <p>Each option is separated by a '|'  or '!' (for Mediawiki).</p>
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+            <colgroup>
+                <col class="left">
+
+                <col class="left">
+
+                <col class="left">
+            </colgroup>
+            <thead>
+            <tr>
+                <th scope="col" class="left">Name</th>
+                <th scope="col" class="left">Default</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="left"><code>width</code></td>
+                <td class="left">100%</td>
+                <td class="left">Chart width</td>
+            </tr>
+            <tr>
+                <td class="left"><code>height</code></td>
+                <td class="left">100%</td>
+                <td class="left">Chart height</td>
+            </tr>
+            <tr>
+                <td class="left"><code>showRowNumber</code></td>
+                <td class="left">false</td>
+                <td class="left">True/false Print number.</td>
+            </tr>
+            <tr>
+                <td class="left"><code>is3D</code></td>
+                <td class="left">true</td>
+                <td class="left">True affiche le graphe en 3D.</td>
+            </tr>
+            <tr>
+                <td class="left"><code>pieHole</code></td>
+                <td class="left">0.3</td>
+                <td class="left">Nombre pour la grosseur du trou central.</td>
+            </tr>
+            <tr>
+                <td class="left"><code>pieStartAngle</code></td>
+                <td class="left">100</td>
+                <td class="left">Nombre pour choisir l'inclinaison du graphe.</td>
+            </tr>
+            <tr>
+                <td class="left"><code>sliceVisibilityThreshold</code></td>
+                <td class="left">0.3</td>
+                <td class="left">Nombre pour afficher un certain nombres de pays.</td>
+            </tr>
+            <tr>
+                <td class="left"><code>pieSliceText</code></td>
+                <td class="left">label</td>
+                <td class="left">Label pour afficher le nom des pays.</td>
+            </tr>
+            <tr>
+                <td class="left"><code>Others... </code></td>
+                <td class="left"></td>
+                <td class="left">You can use the configuration options of Google. <a href="https://developers.google.com/chart/interactive/docs/gallery/piechart#configuration-options">See the doc</a></td>
+            </tr>
+            </tbody>
+        </table>
+
+    <h3>
+        Examples
+    </h3>
+
+        <h4>
+            With options width and height
+        </h4>
+        <div id="result" data-sgvizler-query="
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+select   ?countryLabel (COUNT(?asteroid) as ?nb)
+where {
+?asteroid wdt:P31 wd:Q3863 ;
+wdt:P61 ?discoverer .
+?discoverer wdt:P27 ?country .
+
+SERVICE wikibase:label {
+bd:serviceParam wikibase:language 'en,fr' .
+} .
+
+}
+GROUP BY  ?countryLabel
+ORDER BY DESC(?nb)
+limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql"data-sgvizler-chart="google.visualization.Pie"
+ data-sgvizler-chart-options="width:400|height:300"
+                                                              data-sgvizler-log="0"></div>
+
+
+        <h4>
+            Pie 3D
+        </h4>
+        <p>With option "is3D=true"</p>
+        <div id="result_2" data-sgvizler-query="
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+select   ?countryLabel (COUNT(?asteroid) as ?nb)
+where {
+?asteroid wdt:P31 wd:Q3863 ;
+wdt:P61 ?discoverer .
+?discoverer wdt:P27 ?country .
+
+SERVICE wikibase:label {
+bd:serviceParam wikibase:language 'en,fr' .
+} .
+
+}
+GROUP BY  ?countryLabel
+ORDER BY DESC(?nb)
+limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie"
+data-sgvizler-chart-options="is3D=true"
+                                                              data-sgvizler-log="0"></div>
+
+        <h4>
+            Donut
+        </h4>
+        <p>With option "pieHole=0.3"</p>
+        <div id="result_3" data-sgvizler-query="
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+select   ?countryLabel (COUNT(?asteroid) as ?nb)
+where {
+?asteroid wdt:P31 wd:Q3863 ;
+wdt:P61 ?discoverer .
+?discoverer wdt:P27 ?country .
+
+SERVICE wikibase:label {
+bd:serviceParam wikibase:language 'en,fr' .
+} .
+
+}
+GROUP BY  ?countryLabel
+ORDER BY DESC(?nb)
+limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie" data-sgvizler-chart-options="pieHole=0.3"
+                                                              data-sgvizler-log="0"></div>
+
+
+        <h4>
+            Rotating
+        </h4>
+        <p>With option "pieStartAngle= 100"</p>
+        <div id="result_4" data-sgvizler-query="
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+select   ?countryLabel (COUNT(?asteroid) as ?nb)
+where {
+?asteroid wdt:P31 wd:Q3863 ;
+wdt:P61 ?discoverer .
+?discoverer wdt:P27 ?country .
+
+SERVICE wikibase:label {
+bd:serviceParam wikibase:language 'en,fr' .
+} .
+
+}
+GROUP BY  ?countryLabel
+ORDER BY DESC(?nb)
+limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie" data-sgvizler-chart-options="pieStartAngle=100"
+                                                              data-sgvizler-log="0"></div>
+
+        <h4>
+            Slice Visibility Threshold
+        </h4>
+        <p>With option "sliceVisibilityThreshold= .3"</p>
+        <div id="result_5" data-sgvizler-query="
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+select   ?countryLabel (COUNT(?asteroid) as ?nb)
+where {
+?asteroid wdt:P31 wd:Q3863 ;
+wdt:P61 ?discoverer .
+?discoverer wdt:P27 ?country .
+
+SERVICE wikibase:label {
+bd:serviceParam wikibase:language 'en,fr' .
+} .
+
+}
+GROUP BY  ?countryLabel
+ORDER BY DESC(?nb)
+limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie" data-sgvizler-chart-options="sliceVisibilityThreshold= 0.2"
+                                                              data-sgvizler-log="0"></div>
+
+        <h4>
+            Slice label
+        </h4>
+        <p>With option "pieSliceText=label"</p>
+        <div id="result_6" data-sgvizler-query="
+PREFIX bd: <http://www.bigdata.com/rdf#>
+PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+
+select   ?countryLabel (COUNT(?asteroid) as ?nb)
+where {
+?asteroid wdt:P31 wd:Q3863 ;
+wdt:P61 ?discoverer .
+?discoverer wdt:P27 ?country .
+
+SERVICE wikibase:label {
+bd:serviceParam wikibase:language 'en,fr' .
+} .
+
+}
+GROUP BY  ?countryLabel
+ORDER BY DESC(?nb)
+limit 100" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Pie" data-sgvizler-chart-options="pieSliceText=label"
+                                                              data-sgvizler-log="0"></div>
+
+
+        <!--SCRIPT-->
+        <script>
+            sgvizler2.showTabHtmlAndScript("result");
+            sgvizler2.showTabHtmlAndScript("result_2");
+            sgvizler2.showTabHtmlAndScript("result_3");
+            sgvizler2.showTabHtmlAndScript("result_4");
+            sgvizler2.showTabHtmlAndScript("result_5");
+            sgvizler2.showTabHtmlAndScript("result_6");
+
+            $(function() {
+                sgvizler2.containerDrawAll();
+            });
+        </script>
+    </div>
+</div>

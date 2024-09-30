@@ -1,0 +1,178 @@
+<style>
+    h3, h4 {
+       margin-top: 25px !important;
+    }
+</style>
+<div class="container" >
+    <h3 id="DefinitionList"><a id="sec-4-1-20" name="sec-4-1-20"></a>Definition</h3>
+    <div class="outline-text-4" id="text-DefinitionList">
+
+
+        <!--div class="figure">
+            <p><img src="./image/sDefList.png" alt="sDefList.png">
+            </p>
+            <p><span class="figure-number">Figure 16:</span> Definition list</p>
+        </div-->
+
+        <p>
+            Google Bubble chart.
+
+            (<a href="https://developers.google.com/chart/interactive/docs/gallery/bubblechart">see the doc of Google</a>)
+        </p>
+
+        <h4>
+            Data format
+        </h4>
+        <p>
+            Each row in the table represents a single bubble.
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+            <thead>
+            <tr>
+                <th scope="col" class="left">Column</th>
+                <th scope="col" class="left">Type</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="left">0</td>
+                <td class="left">string</td>
+                <td class="left">ID (name) of the bubble</td>
+            </tr>
+            <tr>
+                <td class="left">1</td>
+                <td class="left">Number</td>
+                <td class="left">X coordinate</td>
+            </tr>
+            <tr>
+                <td class="left">2</td>
+                <td class="left">Number</td>
+                <td class="left">Y coordinate</td>
+            </tr>
+            <tr>
+                <td class="left">3</td>
+                <td class="left">string or number, optional</td>
+                <td class="left">Either a series ID or a value representing a color on a gradient scale, depending on the column type:
+                    <ul>
+                        <li>string -
+                            A string that identifies bubbles in the same series. Use the same value to identify all bubbles that belong to the same series; bubbles in the same series will be assigned the same color. Series can be configured using the series option.</li>
+                        <li>number -
+                            A value that is mapped to an actual color on a gradient scale using the colorAxis option.<</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td class="left">4</td>
+                <td class="left">Number, optional</td>
+                <td class="left">Size; values in this column are mapped to actual pixel values using the sizeAxis option.</td>
+            </tr>
+            </tbody>
+        </table>
+        </p>
+        <h4>
+            Chart options
+        </h4>
+        <p>Each option is separated by a '|'  or '!' (for Mediawiki).</p>
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+            <colgroup>
+                <col class="left">
+
+                <col class="left">
+
+                <col class="left">
+            </colgroup>
+            <thead>
+            <tr>
+                <th scope="col" class="left">Name</th>
+                <th scope="col" class="left">Default</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="left"><code>width</code></td>
+                    <td class="left">100%</td>
+                    <td class="left">Chart width</td>
+                </tr>
+                <tr>
+                    <td class="left"><code>height</code></td>
+                    <td class="left"></td>
+                    <td class="left">Chart height</td>
+                </tr>
+                <tr>
+                    <td class="left"><code>Others... </code></td>
+                    <td class="left"></td>
+                    <td class="left">You can use the configuration options of Google. <a href="https://developers.google.com/chart/interactive/docs/gallery/bubblechart#configuration-options">See the doc</a></td>
+                </tr>
+            </tbody>
+        </table>
+
+    <h3>
+        Examples
+    </h3>
+
+        <h4>
+            Without options
+        </h4>
+        <p></p>
+        <div id="result"
+                    data-sgvizler-query="
+                    PREFIX bd: &lt;http://www.bigdata.com/rdf#>
+                    PREFIX wikibase: &lt;http://wikiba.se/ontology#>
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/>
+                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
+                    select  DISTINCT ?paysLabel ?pib ?population ?continentLabel
+                    WHERE {
+                              ?pays wdt:P31 wd:Q6256.
+                              ?pays wdt:P2132 ?pib .
+                              ?pays wdt:P1082 ?population .
+                              ?pays wdt:P30 ?continent .
+                    SERVICE wikibase:label {
+                         bd:serviceParam wikibase:language 'en' .
+                    }
+
+                          }
+                    LIMIT 200"
+                data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+                data-sgvizler-chart="google.visualization.BubbleChart"
+                data-sgvizler-chart-options=""
+                data-sgvizler-log="2"></div>
+
+        <h4>
+            With options
+        </h4>
+        <p>With options :  "title=PIB en fonction de la population et les pays | hAxis.title=PIB | vAxis.title=Population | bubble.textStyle.fontSize = 12 | bubble.textStyle.fontName= Arial  | bubble.textStyle.color= red | bubble.textStyle.bold= true"</p>
+        <div id="result_2"
+                    data-sgvizler-query="
+                         PREFIX bd: &lt;http://www.bigdata.com/rdf#>
+                    PREFIX wikibase: &lt;http://wikiba.se/ontology#>
+                    PREFIX wd: &lt;http://www.wikidata.org/entity/>
+                    PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/>
+                    select  DISTINCT ?paysLabel ?pib ?population ?continentLabel
+                    WHERE {
+                    ?pays wdt:P31 wd:Q6256.
+                    ?pays wdt:P2132 ?pib .
+                    ?pays wdt:P1082 ?population .
+                    ?pays wdt:P30 ?continent .
+                    SERVICE wikibase:label {
+                    bd:serviceParam wikibase:language 'en' .
+                    }
+
+                    }
+                    LIMIT 200"
+                    data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+                    data-sgvizler-chart="google.visualization.BubbleChart"
+                    data-sgvizler-chart-options="title=PIB en fonction de la population et les pays | hAxis.title=PIB | vAxis.title=Population | bubble.textStyle.fontSize = 12 | bubble.textStyle.fontName= Arial  | bubble.textStyle.color= red | bubble.textStyle.bold= true"
+                data-sgvizler-log="2"></div>
+
+        <!--SCRIPT-->
+        <script>
+            sgvizler2.showTabHtmlAndScript("result");
+            sgvizler2.showTabHtmlAndScript("result_2");
+
+            $(function() {
+                sgvizler2.containerDrawAll();
+            });
+        </script>
+    </div>
+</div>

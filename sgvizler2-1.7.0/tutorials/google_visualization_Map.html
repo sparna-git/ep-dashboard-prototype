@@ -1,0 +1,260 @@
+<style>
+    h3, h4 {
+       margin-top: 25px !important;
+    }
+</style>
+<div class="container" >
+    <p>
+        <b style="color: red">DEPRECATED</b> You can replace it by <a href="tutorial-leaflet_visualization_Map.html">leaflet.visualization.Map</a>.
+    </p>
+    <h3 id="DefinitionList"><a id="sec-4-1-20" name="sec-4-1-20"></a>Definition</h3>
+    <div class="outline-text-4" id="text-DefinitionList">
+
+        <p>
+            Map of Google with popup. This lib limits the number of markers and it does not support wktLiteral datatype and GeoJson.<br/>
+            If Google truncated your data, you can replace this chart by <a href="tutorial-leaflet_visualization_Map.html">leaflet.visualization.Map</a>.<br/>
+            If you want to use freely the wktLiteral datatype (with the property wdt:P625 of Wikidata) or GeoJson data (property wdt:P3896), you have to replace this chart by <a href="tutorial-leaflet_visualization_Map.html">leaflet.visualization.Map</a>.
+        </p>
+        <h4>
+            Data format
+        </h4>
+        <p>
+            Each row in the table represents a set of data points with the same x-axis location. <a href="https://developers.google.com/chart/interactive/docs/gallery/linechart#data-format">see details</a>
+        </p>
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+            <thead>
+            <tr>
+                <th scope="col" class="left">Column</th>
+                <th scope="col" class="left">Type</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="left">0</td>
+                <td class="left">Number</td>
+                <td class="left">Latitude</td>
+            </tr>
+            <tr>
+                <td class="left">1</td>
+                <td class="left">Number</td>
+                <td class="left">Longitude</td>
+            </tr>
+            <tr>
+                <td class="left">2</td>
+                <td class="left">string (Optional)</td>
+                <td class="left">Title of popup or simple label or HTML</td>
+            </tr>
+            <tr>
+                <td class="left">3</td>
+                <td class="left">string (Optional)</td>
+                <td class="left">Description in the popup</td>
+            </tr>
+            <tr>
+                <td class="left">4</td>
+                <td class="left">string (Optional)</td>
+                <td class="left"></td>
+            </tr>
+            <tr>
+                <td class="left">5</td>
+                <td class="left">url (Optional)</td>
+                <td class="left">Link of title</td>
+            </tr>
+            <tr>
+                <td class="left">6</td>
+                <td class="left">url (Optional)</td>
+                <td class="left">Image in the popup</td>
+            </tr>
+            </tbody>
+        </table>
+        <h4>
+            Chart options
+        </h4>
+        <p>Each option is separated by a '|'  or '!' (for Mediawiki).</p>
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+            <colgroup>
+                <col class="left">
+
+                <col class="left">
+
+                <col class="left">
+            </colgroup>
+            <thead>
+            <tr>
+                <th scope="col" class="left">Name</th>
+                <th scope="col" class="left">Default</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="left"><code>width</code></td>
+                <td class="left">100%</td>
+                <td class="left">Chart width</td>
+            </tr>
+            <tr>
+                <td class="left"><code>height</code></td>
+                <td class="left"></td>
+                <td class="left">Chart height</td>
+            </tr>
+            <tr>
+                <td class="left"><code>showTooltip</code></td>
+                <td class="left">false</td>
+                <td class="left">true/false show tooltip.</td>
+            </tr>
+            <tr>
+                <td class="left"><code>showInfoWindow</code></td>
+                <td class="left">true</td>
+                <td class="left">true/false Show info window.</td>
+            </tr>
+            <tr>
+                <td class="left"><code>enableScrollWheel</code></td>
+                <td class="left">true</td>
+                <td class="left">true/false
+                    If set to true, enables zooming in and out using the mouse scroll wheel.</td>
+            </tr>
+
+            <tr>
+                <td class="left"><code>Others... </code></td>
+                <td class="left"></td>
+                <td class="left">You can use the configuration options of Google. <a href="https://developers.google.com/chart/interactive/docs/gallery/map#configuration-options">See the doc</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+
+
+    <h3>
+        Examples
+    </h3>
+
+        <h4>
+            Map with simple pop-ups
+        </h4>
+        <div id="result"
+                     data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+                     data-sgvizler-query="
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX pq: &lt;http://www.wikidata.org/prop/qualifier/&gt;
+PREFIX psv: &lt;http://www.wikidata.org/prop/statement/value/&gt;
+PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+
+select distinct ?lat ?long  ?presidentLabel
+where {
+        ?president wdt:P39 wd:Q191954 ;
+                    wdt:P19  ?villeNaissance ;
+                     p:P39 ?s .
+
+        ?villeNaissance  p:P625 ?coord .
+        ?coord   psv:P625 ?coordValue .
+        ?coordValue a wikibase:GlobecoordinateValue ;
+                        wikibase:geoLatitude ?lat ;
+                        wikibase:geoLongitude ?long .
+
+        SERVICE wikibase:label {
+             bd:serviceParam wikibase:language &quot;fr&quot; .
+        }
+}"
+                     data-sgvizler-chart='google.visualization.Map'
+                     data-sgvizler-chart-options='height=500'
+                     data-sgvizler-loglevel='2'
+></div>
+
+        <h4>
+            Map with complexe pop-ups and options
+        </h4>
+        <p>With useMapTypeControl=true  that enables the viewer to switch between [map, satellite, hybrid, terrain] </p>
+        <div id="result_2"
+                                          data-sgvizler-query="
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX psv: &lt;http://www.wikidata.org/prop/statement/value/&gt;
+PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+
+select distinct
+?lat ?long ?siteLabel ?siteDescription
+?site
+(concat(xsd:string(?image),'?width=200') as ?newimage)
+where {
+        ?site wdt:P31/wdt:P279* wd:Q839954 .
+        ?site wdt:P17 wd:Q142 .
+        ?site wdt:P18 ?image .
+   ?site p:P625 ?coord .
+
+          ?coord   psv:P625 ?coordValue .
+
+          ?coordValue a wikibase:GlobecoordinateValue ;
+                        wikibase:geoLatitude ?lat ;
+                        wikibase:geoLongitude ?long .
+
+        SERVICE wikibase:label {
+             bd:serviceParam wikibase:language 'en,fr' .
+                }
+                }"
+data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+data-sgvizler-chart='google.visualization.Map'
+data-sgvizler-chart-options="useMapTypeControl=true"
+data-sgvizler-log="2"></div>
+
+    <h4>
+        Graph example 3 : empty result
+    </h4>
+    <div id="result_3"
+                                      style='width:100%; height:500px;'
+                                      data-sgvizler-query="
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX psv: &lt;http://www.wikidata.org/prop/statement/value/&gt;
+PREFIX p: &lt;http://www.wikidata.org/prop/&gt;
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+
+select distinct
+?lat ?long ?siteLabel ?siteDescription
+?site
+(concat(xsd:string(?image),'?width=200') as ?newimage)
+where {
+        ?site wdt:P31/wdt:P279* wd:Q1 .
+        ?site wdt:P17 wd:Q142 .
+        ?site wdt:P18 ?image .
+   ?site p:P625 ?coord .
+
+          ?coord   psv:P625 ?coordValue .
+
+          ?coordValue a wikibase:GlobecoordinateValue ;
+                        wikibase:geoLatitude ?lat ;
+                        wikibase:geoLongitude ?long .
+
+        SERVICE wikibase:label {
+             bd:serviceParam wikibase:language 'en,fr' .
+                }
+                }"
+                                      data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+                                      data-sgvizler-chart="google.visualization.Map"
+                                      data-sgvizler-chart-options="headings=false" data-sgvizler-log="0"></div>
+
+    <!--SCRIPT-->
+    <script>
+        var options = {
+            googleApiKey : "AIzaSyBro_IlWgOb5o4C80IWZhq0YHhemlRta3Q"
+        };
+        sgvizler2.showTabHtmlAndScript("result",options);
+        sgvizler2.showTabHtmlAndScript("result_2",options);
+        sgvizler2.showTabHtmlAndScript("result_3",options);
+
+        $(function() {
+            sgvizler2.containerDrawAll(options);
+        });
+    </script>
+</div>

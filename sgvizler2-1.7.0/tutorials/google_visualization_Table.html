@@ -1,0 +1,104 @@
+<style>
+    h3, h4 {
+       margin-top: 25px !important;
+    }
+</style>
+<div class="container" >
+    <h3 id="DefinitionList"><a id="sec-4-1-20" name="sec-4-1-20"></a>Definition</h3>
+    <div class="outline-text-4" id="text-DefinitionList">
+
+
+        <!--div class="figure">
+            <p><img src="./image/sDefList.png" alt="sDefList.png">
+            </p>
+            <p><span class="figure-number">Figure 16:</span> Definition list</p>
+        </div-->
+
+        <p>
+            Google table of results.(<a href="https://developers.google.com/chart/interactive/docs/gallery/table">see the doc of Google</a>)
+        </p>
+
+        <h4>
+            Table options
+        </h4>
+        <p>Each option is separated by a '|'  or '!' (for Mediawiki).</p>
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+            <colgroup>
+                <col class="left">
+
+                <col class="left">
+
+                <col class="left">
+            </colgroup>
+            <thead>
+            <tr>
+                <th scope="col" class="left">Name</th>
+                <th scope="col" class="left">Default</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="left"><code>width</code></td>
+                <td class="left">100%</td>
+                <td class="left">Chart width</td>
+            </tr>
+            <tr>
+                <td class="left"><code>height</code></td>
+                <td class="left"></td>
+                <td class="left">Chart height</td>
+            </tr>
+            <tr>
+                <td class="left"><code>showRowNumber</code></td>
+                <td class="left">false</td>
+                <td class="left">true/false Print number.</td>
+            </tr>
+            <tr>
+                <td class="left"><code>Others... </code></td>
+                <td class="left"></td>
+                <td class="left">You can use the configuration options of Google. <a href="https://developers.google.com/chart/interactive/docs/gallery/table#configuration-options">See the doc</a></td>
+            </tr>
+            </tbody>
+        </table>
+
+    <h3>
+        Examples
+    </h3>
+
+        <h4>
+            Table example 1 :
+        </h4>
+        <div id="result" data-sgvizler-query="
+SELECT  *
+WHERE {
+        ?object ?property ?valueOrObject .
+}
+LIMIT 4"
+data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+data-sgvizler-chart="google.visualization.Table"
+data-sgvizler-log="2"></div>
+
+        <h4>
+            Table example 2
+        </h4>
+        <p>With option "showRowNumber=true"</p>
+        <div id="result_2" data-sgvizler-query="
+SELECT  *
+WHERE {
+        ?object ?property ?valueOrObject .
+}
+LIMIT 4" data-sgvizler-endpoint="https://query.wikidata.org/sparql" data-sgvizler-chart="google.visualization.Table" data-sgvizler-chart-options="showRowNumber=true" data-sgvizler-log="2"></div>
+
+        <!--SCRIPT-->
+        <script>
+            sgvizler2.showTabHtmlAndScript("result");
+            sgvizler2.showTabHtmlAndScript("result_2");
+
+            $(function() {
+                sgvizler2.containerDrawAll();
+            });
+        </script>
+    </div>
+</div>

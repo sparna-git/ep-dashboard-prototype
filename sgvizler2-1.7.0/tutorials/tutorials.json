@@ -1,0 +1,106 @@
+{
+  "A_Editor": {
+    "title": "A SPARQL editor"
+  },
+  "bordercloud_visualization_DataTable": {
+    "title": "bordercloud.visualization.DataTable"
+  },
+  "bordercloud_visualization_PivotTable": {
+    "title": "bordercloud.visualization.PivotTable"
+  },
+
+  "d3_visualization_AreaChart": {
+    "title": "d3.visualization.AreaChart (in construction)"
+  },
+  "d3_visualization_BarChart": {
+    "title": "d3.visualization.BarChart (in construction)"
+  },
+  "d3_visualization_BubbleChart": {
+    "title": "d3.visualization.BubbleChart (in construction)"
+  },
+  "d3_visualization_ColumnChart": {
+    "title": "d3.visualization.ColumnChart (in construction)"
+  },
+  "d3_visualization_Line": {
+    "title": "d3.visualization.Line (in construction)"
+  },
+  "d3_visualization_Pie": {
+    "title": "d3.visualization.Pie (in construction)"
+  },
+  "d3_visualization_ScatterChart": {
+    "title": "d3.visualization.ScatterChart (in construction)"
+  },
+
+
+  "leaflet_visualization_Map": {
+    "title": "leaflet.visualization.Map"
+  },
+
+  "google_visualization_AnnotationChart": {
+    "title": "google.visualization.AnnotationChart"
+  },
+  "google_visualization_AreaChart": {
+    "title": "google.visualization.AreaChart"
+  },
+  "google_visualization_BarChart": {
+    "title": "google.visualization.BarChart"
+  },
+  "google_visualization_BubbleChart": {
+    "title": "google.visualization.BubbleChart"
+  },
+  "google_visualization_Calendar": {
+    "title": "google.visualization.Calendar"
+  },
+  "google_visualization_CandlestickChart": {
+    "title": "google.visualization.CandlestickChart"
+  },
+  "google_visualization_ColumnChart": {
+    "title": "google.visualization.ColumnChart"
+  },
+  "google_visualization_ComboChart": {
+    "title": "google.visualization.ComboChart"
+  },
+  "google_visualization_GeoChart": {
+    "title": "google.visualization.GeoChart"
+  },
+  "google_visualization_Histogram": {
+    "title": "google.visualization.Histogram"
+  },
+  "google_visualization_IntervalChart": {
+    "title": "google.visualization.IntervalChart"
+  },
+  "google_visualization_LineChart": {
+    "title": "google.visualization.LineChart"
+  },
+  "google_visualization_Map": {
+    "title": "google.visualization.Map"
+  },
+  "google_visualization_OrgChart": {
+    "title": "google.visualization.OrgChart (in construction)"
+  },
+  "google_visualization_Pie": {
+    "title": "google.visualization.Pie"
+  },
+  "google_visualization_ScatterChart": {
+    "title": "google.visualization.ScatterChart "
+  },
+  "google_visualization_SteppedAreaChart": {
+    "title": "google.visualization.SteppedAreaChart "
+  },
+  "google_visualization_Table": {
+    "title": "google.visualization.Table"
+  },
+  "google_visualization_Timeline": {
+    "title": "google.visualization.Timeline"
+  },
+  "google_visualization_Trendline": {
+    "title": "google.visualization.Trendline"
+  },
+  "google_visualization_TreeMap": {
+    "title": "google.visualization.TreeMap"
+  },
+
+  "sgvizler_visualization_Table": {
+    "title": "sgvizler.visualization.Table"
+  }
+}

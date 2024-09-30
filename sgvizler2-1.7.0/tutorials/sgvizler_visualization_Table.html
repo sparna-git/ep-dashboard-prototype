@@ -1,0 +1,122 @@
+<style>
+    h3, h4 {
+       margin-top: 25px !important;
+    }
+</style>
+<div class="container" >
+    <h3 id="DefinitionList"><a id="sec-4-1-20" name="sec-4-1-20"></a>Definition</h3>
+    <div class="outline-text-4" id="text-DefinitionList">
+
+
+        <!--div class="figure">
+            <p><img src="./image/sDefList.png" alt="sDefList.png">
+            </p>
+            <p><span class="figure-number">Figure 16:</span> Definition list</p>
+        </div-->
+
+        <p>
+            Table of results. All columns are treated as text or Headers can be hide.
+        </p>
+
+        <h4>
+            Table options
+        </h4>
+        <p>Each option is separated by a '|'  or '!' (for Mediawiki).</p>
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+            <colgroup>
+                <col class="left">
+
+                <col class="left">
+
+                <col class="left">
+            </colgroup>
+            <thead>
+            <tr>
+                <th scope="col" class="left">Name</th>
+                <th scope="col" class="left">Default</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="left"><code>width</code></td>
+                <td class="left">100%</td>
+                <td class="left">Table width</td>
+            </tr>
+            <tr>
+                <td class="left"><code>height</code></td>
+                <td class="left"></td>
+                <td class="left">Table height</td>
+            </tr>
+            <tr>
+                <td class="left"><code>headings</code></td>
+                <td class="left">true</td>
+                <td class="left">true/false Print headers.</td>
+            </tr>
+            </tbody>
+        </table>
+
+    <h3>
+        Examples
+    </h3>
+
+        <h4>
+            Table example 1 :
+        </h4>
+        <div id="result" data-sgvizler-query="
+                    PREFIX dbo: <http://dbpedia.org/ontology/>
+                    PREFIX owl: <http://www.w3.org/2002/07/owl#>
+                    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+                    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                    PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                    PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+                    PREFIX dc: <http://purl.org/dc/elements/1.1/>
+                    PREFIX : <http://dbpedia.org/resource/>
+                    PREFIX dbpedia2: <http://dbpedia.org/property/>
+                    PREFIX dbpedia: <http://dbpedia.org/>
+                    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+                    SELECT DISTINCT ?company ?name
+                    WHERE {
+                          ?company a dbo:Company .
+                          ?company rdfs:label ?name .
+                          ?company dbo:industry :Aerospace_manufacturer .
+                          FILTER (LANG(?name) = 'en') .
+
+                    } ORDER BY ?name
+"
+data-sgvizler-endpoint="http://dbpedia-live.openlinksw.com/sparql/"
+data-sgvizler-chart="sgvizler.visualization.Table"></div>
+
+        <h4>
+            Table example 2
+        </h4>
+<p>With option "headings=false"</p>
+        <div id="result_2" data-sgvizler-query="
+                    PREFIX p: <http://www.wikidata.org/prop/>
+                    PREFIX wd: <http://www.wikidata.org/entity/>
+                    prefix pq: <http://www.wikidata.org/prop/qualifier/>
+                    prefix ps: <http://www.wikidata.org/prop/statement/>
+
+                    select (YEAR(?date) as ?year) ?population
+                    where {
+                           wd:Q61816 p:P1082 ?statement .
+                            ?statement ps:P1082 ?population ;
+                                        pq:P585 ?date .
+                          }
+                    ORDER BY ?year
+" data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+ data-sgvizler-chart="sgvizler.visualization.Table" data-sgvizler-chart-options="headings=false" data-sgvizler-log="0"></div>
+
+        <!--SCRIPT-->
+        <script>
+            sgvizler2.showTabHtmlAndScript("result");
+            sgvizler2.showTabHtmlAndScript("result_2");
+
+            $(function() {
+                sgvizler2.containerDrawAll();
+            });
+    </script>
+    </div>
+</div>

@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<?js var that = this; ?>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title><?js= this.navOptions.systemTitle ?> <?js= title ?></title>
+
+	<!--[if lt IE 9]>
+	<script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+	<![endif]-->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css">
+<link rel="stylesheet" href="sgvizler2/lib/bootstrap-select/css/bootstrap-select.min.css">
+<script src="sgvizler2/lib/bootstrap-select/js/bootstrap-select.min.js"></script>
+<script src="sgvizler2/lib/bootstrap-select/js/i18n/defaults-fr_FR.min.js"></script>
+<script src="sgvizler2/lib/bootstrap-select/js/i18n/defaults-en_US.min.js"></script>
+<script src="sgvizler2/sgvizler2.js"></script>
+
+</head>
+
+<body>
+<div class="navbar navbar-expand-lg <?js= this.navOptions.inverseNav ? 'navbar-inverse' : '' ?>">
+<div class="container">
+    <nav class="navbar navbar-expand-sm navbar-light">
+      <a class="navbar-brand" href="<?js= this.nav.index.link ?>"><?js if(this.navOptions.logoFile) { ?><img class="branding-logo" src="<?js= this.navOptions.logoFile ?>"
+                  alt="logo"/><?js } ?><div style='position: relative;font:bold;color: black;font-size: 31pt;font-weight: bolder;'><img style='vertical-align: sub;' src='img/mr.sgvizler.png' width='55px'/>Sgvizler 2</div></a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+                <?js this.nav.topLevelNav.forEach(function(entry){ ?>
+                    <?js if (entry.title === 'Tutorials') { ?>
+                      <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="<?js= entry.link ?>" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <?js= entry.title ?>
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                            <?js entry.members.forEach(function(member){ ?><?js= member ?><?js	}); ?>
+                        </div>
+                      </li>
+                    <?js } ?>
+                <?js }); ?>
+        </ul>
+        <ul class="navbar-nav  navbar-right">
+            <li><a class="nav-link" href="https://github.com/BorderCloud/sgvizler2"><span class="d-none d-sm-inline">View on GitHub</span> <svg version="1.1" width="16" height="16" viewBox="0 0 16 16" class="octicon octicon-mark-github" aria-hidden="true"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z"></path></svg></a></li>
+        </ul>
+      </div>
+    </nav>
+</div>
+</div>
+
+
+<div class="container" id="toc-content">
+<div class="row">
+
+	<?js if(docs && docs[0].kind !== "source"){ ?>
+	<div class="col-md-8">
+	<?js } else { ?>
+	<div class="col-md-12">
+	<?js } ?>
+		<div id="main">
+			<?js= content ?>
+		</div>
+	</div>
+
+	<div class="clearfix"></div>
+
+	<?js if(docs && docs[0].kind !== "source"){ ?>
+		<div class="col-md-3">
+			<div id="toc" class="col-md-3 hidden-xs hidden-sm hidden-md"></div>
+		</div>
+	<?js } ?>
+
+</div>
+</div>
+
+<?js if (this.navOptions.search) { ?>
+    <div class="modal fade" id="searchResults">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Search results</h4>
+          </div>
+          <div class="modal-body"></div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div><!-- /.modal-content -->
+      </div><!-- /.modal-dialog -->
+    </div>
+<?js } ?>
+
+<!--footer class="bd-footer small">
+<div class="container">
+    <div class="bottom-footer">
+        <div class="col-md-12">
+<?js if (that.navOptions.footer.length > 0){ ?>
+	<?js= that.navOptions.footer ?>
+<?js } ?>
+        </div>
+        <div class="col-md-12">
+<?js if (that.navOptions.copyright.length > 0){ ?>
+    <span class="copyright">
+    <?js= that.navOptions.copyright ?>
+    </span>
+<?js } ?>
+        </div>
+        <div class="col-md-12">
+<span class="jsdoc-message">
+	Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc <?js= env.version.number ?></a>
+	<?js if (that.navOptions.includeDate) { ?>
+		on <?js= (that.moment().format(that.navOptions.dateFormat)) ?>
+	<?js } ?>
+	using the <a href="https://github.com/docstrap/docstrap">DocStrap template</a>.
+</span>
+        </div>
+    </div>
+</div>
+</footer-->
+
+
+<!--script src="scripts/docstrap.lib.js"></script-->
+<!--script src="scripts/toc.js"></script-->
+<?js if (this.navOptions.search) { ?>
+    <!--script type="text/javascript" src="scripts/fulltext-search-ui.js"></script-->
+<?js } ?>
+
+<script>
+$( function () {
+	$( "[id*='$']" ).each( function () {
+		var $this = $( this );
+
+		$this.attr( "id", $this.attr( "id" ).replace( "$", "__" ) );
+	} );
+/*
+	$( ".tutorial-section pre, .readme-section pre, pre.prettyprint.source" ).each( function () {
+		var $this = $( this );
+
+		var example = $this.find( "code" );
+        if(example.length !=0 ){
+            exampleText = example.html();
+            var lang = /{@lang (.*?)}/.exec( exampleText );
+            if ( lang && lang[1] ) {
+                exampleText = exampleText.replace( lang[0], "" );
+                example.html( exampleText );
+                lang = lang[1];
+            } else {
+                var langClassMatch = example.parent()[0].className.match(/lang\-(\S+)/);
+                lang = langClassMatch ? langClassMatch[1] : "javascript";
+            }
+
+            if ( lang ) {
+
+                $this
+                .addClass( "sunlight-highlight-" + lang )
+                .addClass( "linenums" )
+                .html( example.html() );
+
+            }
+        }
+	} );
+	*/
+/*
+	Sunlight.highlightAll( {
+		lineNumbers : <?js= this.navOptions.linenums || false ?>,
+		showMenu : true,
+		enableDoclinks : true
+	} );
+*/
+/*
+	$.catchAnchorLinks( {
+        navbarOffset: 10
+	} );
+	$( "#toc" ).toc( {
+		anchorName  : function ( i, heading, prefix ) {
+			return $( heading ).attr( "id" ) || ( prefix + i );
+		},
+		selectors   : "#toc-content h1,#toc-content h2,#toc-content h3,#toc-content h4",
+		showAndHide : false,
+		smoothScrolling: true
+	} );
+
+	$( "#main span[id^='toc']" ).addClass( "toc-shim" );
+	$( '.dropdown-toggle' ).dropdown();
+
+    $( "table" ).each( function () {
+      var $this = $( this );
+      $this.addClass('table');
+    } );
+*/
+} );
+</script>
+
+
+
+<!--Navigation and Symbol Display-->
+<?js if (this.navOptions.collapseSymbols) { ?>
+<script>
+	$( function () {
+		$( '#main' ).localScroll( {
+			offset : { top : 60 } //offset by the height of your header (give or take a few px, see what works for you)
+		} );
+		$( "dt.name" ).each( function () {
+			var $this = $( this ).find("h4");
+			var icon = $( "<i/>" ).addClass( "icon-plus-sign" ).addClass( "pull-right" ).addClass( "icon-white" );
+			var dt = $(this);
+			var children = dt.next( "dd" );
+
+			dt.prepend( icon ).css( {cursor : "pointer"} );
+			dt.addClass( "member-collapsed" ).addClass( "member" );
+
+
+			children.hide();
+
+			dt.children().on( "click", function () {
+				children = dt.next( "dd" );
+				children.slideToggle( "fast", function () {
+
+					if ( children.is( ":visible" ) ) {
+						icon.addClass( "icon-minus-sign" ).removeClass( "icon-plus-sign" ).removeClass( "icon-white" );
+						dt.addClass( "member-open" ).animate( "member-collapsed" );
+					} else {
+						icon.addClass( "icon-plus-sign" ).removeClass( "icon-minus-sign" ).addClass( "icon-white" );
+						dt.addClass( "member-collapsed" ).removeClass( "member-open" );
+					}
+				} );
+			} );
+
+		} );
+	} );
+</script>
+<?js } ?>
+
+<!--Google Analytics-->
+<?js if (this.navOptions.analytics && this.navOptions.analytics.ua && this.navOptions.analytics.domain) { ?>
+<script>
+	(function ( i, s, o, g, r, a, m ) {
+		i['GoogleAnalyticsObject'] = r;
+		i[r] = i[r] || function () {
+			(i[r].q = i[r].q || []).push( arguments )
+		}, i[r].l = 1 * new Date();
+		a = s.createElement( o ),
+			m = s.getElementsByTagName( o )[0];
+		a.async = 1;
+		a.src = g;
+		m.parentNode.insertBefore( a, m )
+	})( window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga' );
+
+	ga( 'create', '<?js= this.navOptions.analytics.ua ?>', '<?js= this.navOptions.analytics.domain ?>' );
+	ga( 'send', 'pageview' );
+</script>
+<?js } ?>
+
+<?js if (this.navOptions.search) { ?>
+    <script type="text/javascript">
+        $(document).ready(function() {
+           // SearcherDisplay.init();
+        });
+    </script>
+<?js } ?>
+
+
+
+</body>
+</html>

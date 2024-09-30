@@ -1,0 +1,5 @@
+# ignore all
+*
+
+# include only browser version
+!build/browser/*

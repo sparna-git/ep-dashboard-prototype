@@ -1,0 +1,123 @@
+<style>
+    h3, h4 {
+       margin-top: 25px !important;
+    }
+</style>
+<div class="container" >
+    <h3 id="DefinitionList"><a id="sec-4-1-20" name="sec-4-1-20"></a>Definition</h3>
+    <div class="outline-text-4" id="text-DefinitionList">
+
+
+        <!--div class="figure">
+            <p><img src="./image/sDefList.png" alt="sDefList.png">
+            </p>
+            <p><span class="figure-number">Figure 16:</span> Definition list</p>
+        </div-->
+
+        <p>
+            A calendar chart is a visualization used to show activity over the course of a long span of time, such as months or years.
+            (<a href="https://developers.google.com/chart/interactive/docs/gallery/calendar">see the doc of Google</a>)
+        </p>
+
+        <h4>
+            Data format
+        </h4>
+        <p>
+            You can display one or more lines on your chart. Each row represents an X position on the chart—that is, a specific time; each line is described by a set of one to three columns.
+
+
+
+
+        </p>
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+            <thead>
+            <tr>
+                <th scope="col" class="left">Column</th>
+                <th scope="col" class="left">Type</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="left">0</td>
+                <td class="left">date, datetime, or timeofday</td>
+                <td class="left">Dates</td>
+            </tr>
+            <tr>
+                <td class="left">1</td>
+                <td class="left">Number</td>
+                <td class="left">Values</td>
+            </tr>
+            <tr>
+                <td class="left">N</td>
+                <td class="left">string</td>
+                <td class="left">Optional roles - tooltip
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <h4>
+            Chart options
+        </h4>
+        <p>Each option is separated by a '|'  or '!' (for Mediawiki).</p>
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+            <thead>
+            <tr>
+                <th scope="col" class="left">Name</th>
+                <th scope="col" class="left">Default</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="left"><code>width</code></td>
+                <td class="left">100%</td>
+                <td class="left">Chart width</td>
+            </tr>
+            <tr>
+                <td class="left"><code>height</code></td>
+                <td class="left"></td>
+                <td class="left">Chart height</td>
+            </tr>
+            <tr>
+                <td class="left"><code>Others... </code></td>
+                <td class="left"></td>
+                <td class="left">You can use the configuration options of Google. <a href="https://developers.google.com/chart/interactive/docs/gallery/calendar#configuration-options">See the doc</a></td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <h4>
+            Exemple
+        </h4>
+        <div id="result"
+                     data-sgvizler-query="
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+
+select ?date (count(?event) as ?nb)
+where {
+    ?event wdt:P585 ?date .
+  FILTER(YEAR(?date) >= 2017 && YEAR(?date) < 2018)
+}
+GROUP BY ?date
+ORDER BY ?date
+"
+                     data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+                     data-sgvizler-chart="google.visualization.Calendar"
+                     data-sgvizler-chart-options="height=500"
+                     data-sgvizler-log="0"
+                ></div>
+
+        <!--SCRIPT-->
+        <script>
+            sgvizler2.showTabHtmlAndScript("result");
+
+            $(function() {
+                sgvizler2.containerDrawAll();
+            });
+        </script>
+    </div>
+</div>

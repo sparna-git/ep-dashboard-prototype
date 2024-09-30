@@ -1,0 +1,369 @@
+<style>
+    h3, h4 {
+       margin-top: 25px !important;
+    }
+</style>
+<div class="container" >
+    <h3 id="DefinitionList"><a id="sec-4-1-20" name="sec-4-1-20"></a>Definition</h3>
+    <div class="outline-text-4" id="text-DefinitionList">
+
+
+        <!--div class="figure">
+            <p><img src="./image/sDefList.png" alt="sDefList.png">
+            </p>
+            <p><span class="figure-number">Figure 16:</span> Definition list</p>
+        </div-->
+
+        <p>
+            This table uses <a href="https://datatables.net/">DataTables.net</a>. You can adapt each column with the
+            option colstyle. You can customize the style of column or print directly images and videos.
+        </p>
+
+        <h4>
+            Chart options
+        </h4>
+        <p>
+            Each option is separated by a '|'  or '!' (for Mediawiki).
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+
+            <colgroup>
+                <col class="left">
+
+                <col class="left">
+
+                <col class="left">
+            </colgroup>
+            <thead>
+            <tr>
+                <th scope="col" class="left">Name</th>
+                <th scope="col" class="left">Default</th>
+                <th scope="col" class="left">Description</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td class="left"><code>width</code></td>
+                <td class="left">100%</td>
+                <td class="left">width of table</td>
+            </tr>
+            <tr>
+                <td class="left"><code>height</code></td>
+                <td class="left"></td>
+                <td class="left">Chart height</td>
+            </tr>
+            <tr>
+                <td class="left"><code>class</code></td>
+                <td class="left">table table-striped table-bordered</td>
+                <td class="left">css class</td>
+            </tr>
+            <tr>
+                <td class="left"><code>cellspacing</code></td>
+                <td class="left">0</td>
+                <td class="left">cellspacing of table</td>
+            </tr>
+            <tr>
+                <td class="left"><code>colstyle</code></td>
+                <td class="left"></td>
+                <td class="left">This parameter can replace the pattern of columns. You can define the tag img and
+                    span and its style.</td>
+            </tr>
+            </tbody>
+        </table>
+        </p>
+
+        <h4>Examples for colstyle</h4>
+
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+            <thead>
+            <tr>
+                <th scope="col" class="left">Example</th>
+                <th scope="col" class="left">data-sgvizler-chart-options</th>
+                <th scope="col" class="left">column</th>
+                <th scope="col" class="left">Result in html</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+                <td class="left">Example 1</td>
+                <td class="left">(example without options)</td>
+                <td class="left"></td>
+                <td class="left"></td>
+            </tr>
+            <tr>
+                <td class="left">Example 2</td>
+                <td class="left"><code><b>cellspacing=</b>3 <br/>! <b>colstyle=</b>col1_img_display:block; col1_img_max-width:250px;
+                    col1_img_border-radius:50%; col1_img_margin:auto
+                    ;col1_img_opacity:0.5</code></td>
+                <td class="left">1</td>
+                <td
+                        class="left">Column 1 : <code>&lt;img
+                    url="data"
+                    style="display:block;max-width:300px;border-radius:50%;margin:auto; opacity:0.5"/&gt;</code></td>
+            </tr>
+            <tr>
+                <td class="left">Example 3</td>
+                <td class="left"><code><b>colstyle=</b>col0_span_color:#F00; col0_span_font-weight: bold; col1_img_max-width:75px; col1_img_border-radius:50%; col1_img_display:block; col1_img_margin:auto; col2_img_max-width:100px; col2_img_max-height:300px; col1_img_opacity:0.8"</code></td>
+                <td class="left">0, 1 and 2</td>
+                <td class="left">
+                    Column 0 : <code>&lt;span
+                    style="color:#F00;font-weight: bold"/&gt;data&lt;/span&gt;</code></br>
+                    Column 1 : <code>&lt;img
+                    style="display:block;border-radius:50%; max-width:75px;margin:auto;"/&gt;</code></br>
+                    Column 2 : <code>&lt;img
+                    style="width:100px; max-height:300px;opacity:0.8"/&gt;</code></br>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="left">Example 4</td>
+                <td class="left"><code><b>colstyle=</b>col2_video_max-width:250px;"</code></td>
+                <td class="left">2</td>
+                <td class="left">
+                    Column 2 : <code>&lt;video or iframe
+                    style="max-width:250px"/&gt;</code></br>
+                </td>
+            </tr>
+
+            </tbody>
+        </table>
+
+
+        <h4>Video types supported</h4>
+
+        <table border="2" cellspacing="0" cellpadding="6" rules="groups" frame="hsides">
+
+            <thead>
+            <tr>
+                <th scope="col" class="left">Service</th>
+                <th scope="col" class="left">Video type</th>
+                <th scope="col" class="left">HTML tag used</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            <tr>
+                <td class="left">Youtube</td>
+                <td class="left">Format of Youtube</td>
+                <td class="left">Use the Youtube's iframe</td>
+            </tr>
+            <tr>
+                <td class="left">Facebook</td>
+                <td class="left">Format of Facebook</td>
+                <td class="left">Use the Facebook's iframe (not tested)</td>
+            </tr>
+            <tr>
+                <td class="left">Commons.Wikimedia.org</td>
+                <td class="left">Ogg, Webm, ogv</td>
+                <td class="left">Video (Html 5)</td>
+            </tr>
+            <tr>
+                <td class="left">Default</td>
+                <td class="left"></td>
+                <td class="left">iframe</td>
+            </tr>
+            </tbody>
+        </table>
+
+
+
+    <h3>
+        Examples
+    </h3>
+
+        <h4>
+            Example 1 : table by default
+        </h4>
+        <p></p>
+<div id="result" data-sgvizler-query="
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT  *
+WHERE {
+?object ?property ?valueOrObject .
+}
+LIMIT 4
+"
+data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+data-sgvizler-chart="bordercloud.visualization.DataTable"
+data-sgvizler-log="2"
+                ></div>
+
+        <h4>
+            Example 2 : table with images
+        </h4>
+        <p></p>
+        <div id="result_2" data-sgvizler-query="
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+
+SELECT  ?itemLabel ?image
+WHERE
+{
+  ?item wdt:P161 wd:Q221074.
+  ?item wdt:P18 ?image .
+  SERVICE wikibase:label { bd:serviceParam wikibase:language &quot;en&quot;. }.
+}LIMIT 5"
+data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+data-sgvizler-chart="bordercloud.visualization.DataTable"
+data-sgvizler-chart-options="cellspacing=3 ! colstyle=col1_img_max-width:250px; col1_img_border-radius:50%; col1_img_display:block; col1_img_margin:auto; col1_img_opacity:0.5"
+data-sgvizler-log="2"></div>
+
+        <h4>
+            Example 3 : table with columns customized
+        </h4>
+        <p></p>
+        <div id="result_3" data-sgvizler-query="
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+SELECT  ?image ?objLabel   ?sameImage
+WHERE {
+  ?obj wdt:P485 wd:Q964035 .
+  ?obj wdt:P18 ?image .
+  ?obj wdt:P18 ?sameImage .
+  SERVICE wikibase:label {
+    bd:serviceParam wikibase:language 'en' .
+  }
+}
+LIMIT 5"
+data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+data-sgvizler-chart="bordercloud.visualization.DataTable"
+data-sgvizler-chart-options="colstyle=col0_img_max-width:75px; col0_img_border-radius:50%; col0_img_display:block; col0_img_margin:auto; col1_span_color:#F00; col1_span_font-weight: bold;  col2_img_max-width:100px; col2_img_max-height:300px; col2_img_opacity:0.8"
+data-sgvizler-log="2"
+                ></div>
+
+        <h4>
+            Example 4 : table with videos of Commons.Wikimedia.org
+        </h4>
+        <p></p>
+        <div id="result_5"
+                     data-sgvizler-query="
+PREFIX bd: &lt;http://www.bigdata.com/rdf#&gt;
+PREFIX wikibase: &lt;http://wikiba.se/ontology#&gt;
+PREFIX wd: &lt;http://www.wikidata.org/entity/&gt;
+PREFIX wdt: &lt;http://www.wikidata.org/prop/direct/&gt;
+
+PREFIX xsd: &lt;http://www.w3.org/2001/XMLSchema#&gt;
+PREFIX rdfs: &lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+
+select
+(YEAR(?date) as ?year)
+(CONCAT('&lt;a href=\'',?link,'\'&gt;',?label,'&lt;/a&gt;') as ?html)
+?video
+                    where {
+                    ?object wdt:P31 wd:Q11424 ;
+                    wdt:P577 ?date ;
+                    wdt:P10 ?video ;
+                    rdfs:label ?label .
+
+                    FILTER (langMatches(lang(?label), 'fr'))
+
+                    BIND(replace( xsd:string(?object),
+                    'http://www.wikidata.org/entity/',
+                    'https://www.wikidata.org/wiki/Special:GoToLinkedPage/frwiki/') as ?link)
+                    }
+                    ORDER BY ASC(?date)
+                    LIMIT 5
+"
+                data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+                data-sgvizler-chart="bordercloud.visualization.DataTable"
+                data-sgvizler-chart-options="colstyle=col2_video_max-width:250px;"
+                data-sgvizler-log="2"></div>
+
+        <h4>
+            Test 1 : datatypes without language tag
+        </h4>
+        <p></p>
+        <div id="result_100"
+             data-sgvizler-query="
+select
+     ?example ?result  (datatype(?result) as ?Datatype_detected) (?datatype as ?Datatype_expected)
+where {
+ VALUES (?datatype ?example ?result) {
+            ( 'IRI'	            'wd:Q1'	                                wd:Q1)
+
+            ( 'xsd:string'	    'unicode text or HTML'	                'unicode text or HTML'^^xsd:string)
+            ( 'xsd:string'	    '<b>Be bold!</b>'	                    '<b>Be bold!</b>'^^xsd:string)
+            ( 'rdf:langString'	'unicode text or HTML with tag lang'    'unicode text or HTML'@en)
+            ( 'rdf:langString'	'<b>Be bold!</b> with tag lang'	        '<b>Be bold!</b> with tag lang'@en)
+
+            ( 'xsd:boolean'	    'true'	                                true)
+            ( 'xsd:boolean'	    'false'	                                false)
+
+            ( 'xsd:integer'	    '-1'	                                -1)
+            ( 'xsd:integer'	    '0'	                                    0)
+            ( 'xsd:integer'	    '12678967543233'	                    12678967543233)
+            ( 'xsd:integer'	    '+100000'	                            +100000)
+
+            ( 'xsd:decimal'	    '-1.23'	                                -1.23)
+            ( 'xsd:decimal'	    '12678967.543233'	                    12678967.543233)
+            ( 'xsd:decimal'	    '+100000.00'                            +100000.00)
+            ( 'xsd:decimal'	    '\'210\'^^xsd:decimal'	                '210'^^xsd:decimal)
+
+            ( 'xsd:double'	    '-1E4'                                  -1E4)
+            ( 'xsd:double'	    '1267.43233E12'                         1267.43233E12)
+            ( 'xsd:double'	    '12.78e-2'                              12.78e-2)
+            ( 'xsd:double'	    '\'12\'^^xsd:double'                    '12'^^xsd:double)
+            ( 'xsd:double'	    '\'-0\'^^xsd:double'                    '-0'^^xsd:double)
+            ( 'xsd:double'	    '\'0\'^^xsd:double'	                    '0'^^xsd:double)
+
+            ( 'xsd:date'	    '\'2002-10-11\'^^xsd:date'	            '2002-10-11'^^xsd:date)
+
+            ( 'xsd:dateTime'    '\'2002-10-11T12:00:00Z\'^^xsd:dateTime' '2002-10-11T12:00:00Z'^^xsd:dateTime)
+            ( 'xsd:dateTime'    '\'2002-10-11T12:00:00-05:00\'^^xsd:dateTime' '2002-10-11T12:00:00-05:00'^^xsd:dateTime)
+            ( 'xsd:dateTime'    '\'2002-10-11T12:00:00+01:00\'^^xsd:dateTime' '2002-10-11T12:00:00+01:00'^^xsd:dateTime)
+
+            ( 'xsd:time'    '\'13:20:00\'^^xsd:time'	'13:20:00'^^xsd:time)
+    }
+}
+"
+             data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+             data-sgvizler-chart="bordercloud.visualization.DataTable"
+             data-sgvizler-chart-options=""
+             data-sgvizler-log="2"></div>
+        <h4>
+            Test 2 : datatypes with a language tag (FR)
+        </h4>
+        <p></p>
+        <div id="result_101"
+             data-sgvizler-query="
+select
+     ?example ?result  (datatype(?result) as ?Datatype_detected) (?datatype as ?Datatype_expected)
+where {
+ VALUES (?datatype ?example ?result) {
+
+            ( 'xsd:date'	    '\'2002-10-11\'^^xsd:date'	            '2002-10-11'^^xsd:date)
+
+            ( 'xsd:dateTime'    '\'2002-10-11T12:00:00Z\'^^xsd:dateTime' '2002-10-11T12:00:00Z'^^xsd:dateTime)
+            ( 'xsd:dateTime'    '\'2002-10-11T12:00:00-05:00\'^^xsd:dateTime' '2002-10-11T12:00:00-05:00'^^xsd:dateTime)
+            ( 'xsd:dateTime'    '\'2002-10-11T12:00:00+01:00\'^^xsd:dateTime' '2002-10-11T12:00:00+01:00'^^xsd:dateTime)
+
+            ( 'xsd:time'    '\'13:20:00\'^^xsd:time'	'13:20:00'^^xsd:time)
+    }
+}
+"
+             data-sgvizler-endpoint="https://query.wikidata.org/sparql"
+             data-sgvizler-chart="bordercloud.visualization.DataTable"
+             data-sgvizler-chart-options=""
+             data-sgvizler-log="2"
+             lang="fr"></div>
+        <!--SCRIPT-->
+        <script>
+            sgvizler2.showTabHtmlAndScript("result");
+            sgvizler2.showTabHtmlAndScript("result_2");
+            sgvizler2.showTabHtmlAndScript("result_3");
+            sgvizler2.showTabHtmlAndScript("result_5");
+            sgvizler2.showTabHtmlAndScript("result_100");
+            sgvizler2.showTabHtmlAndScript("result_101");
+
+            $(function() {
+                sgvizler2.containerDrawAll();
+            });
+        </script>
+    </div>
+</div>
