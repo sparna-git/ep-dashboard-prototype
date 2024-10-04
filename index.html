@@ -24,48 +24,48 @@
     <div class="row">
         <h2>Documents per type</h2>
     </div>
-
+    
     <div class="row">
         <div class="col-md-8">
             <div id="dashboard-10" data-sgvizler-query="
-    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-    PREFIX eli: <http://data.europa.eu/eli/ontology#>
-    select ?workTypeLabel (COUNT(?work) AS ?workCount) where {
-        ?work a eli:Work .
-        ?work eli:work_type ?workType .
-        ?workType skos:prefLabel ?workTypeLabel FILTER(lang(?workTypeLabel) = 'en')
-    }
-    GROUP BY ?workTypeLabel
-    ORDER BY DESC(?workCount)"
-    data-sgvizler-endpoint="https://proxy.sparnatural.eu/sparql-proxy/sparql?endpoint=http%3A%2F%2Fgraphdb.sparna.fr%2Frepositories%2Fep_dashboard"
-    data-sgvizler-chart="google.visualization.Pie"
-    data-sgvizler-chart-options="pieSliceText=label|pieHole=0.4"
-    data-sgvizler-log="0"></div>
+                PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+                PREFIX eli: <http://data.europa.eu/eli/ontology#>
+                select ?workTypeLabel (COUNT(?work) AS ?workCount) where {
+                    ?work a eli:Work .
+                    ?work eli:work_type ?workType .
+                    ?workType skos:prefLabel ?workTypeLabel FILTER(lang(?workTypeLabel) = 'en')
+                }
+                GROUP BY ?workTypeLabel
+                ORDER BY DESC(?workCount)"
+                data-sgvizler-endpoint="http://graphdb.sparna.fr/repositories/ep_dashboard"
+                data-sgvizler-chart="google.visualization.Pie"
+                data-sgvizler-chart-options="pieSliceText=label|pieHole=0.4|is3D=true|title=Number of instances"
+                data-sgvizler-log="2"></div>
         </div>
 
         <div class="col-md-4">
             <div id="dashboard-10-b" data-sgvizler-query="
-    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
-    PREFIX eli: <http://data.europa.eu/eli/ontology#>
-    select ?workTypeLabel (COUNT(?work) AS ?workCount) where {
-        ?work a eli:Work .
-        ?work eli:work_type ?workType .
-        ?workType skos:prefLabel ?workTypeLabel FILTER(lang(?workTypeLabel) = 'en')
-    }
-    GROUP BY ?workTypeLabel
-    ORDER BY DESC(?workCount)"
-    data-sgvizler-endpoint="https://proxy.sparnatural.eu/sparql-proxy/sparql?endpoint=http%3A%2F%2Fgraphdb.sparna.fr%2Frepositories%2Fep_dashboard"
-    data-sgvizler-chart="google.visualization.Table"
-    data-sgvizler-chart-options=""
-    data-sgvizler-log="0"></div>
+                PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+                PREFIX eli: <http://data.europa.eu/eli/ontology#>
+                select ?workTypeLabel (COUNT(?work) AS ?workCount) where {
+                    ?work a eli:Work .
+                    ?work eli:work_type ?workType .
+                    ?workType skos:prefLabel ?workTypeLabel FILTER(lang(?workTypeLabel) = 'en')
+                }
+                GROUP BY ?workTypeLabel
+                ORDER BY DESC(?workCount)"
+                data-sgvizler-endpoint="http://graphdb.sparna.fr/repositories/ep_dashboard"
+                data-sgvizler-chart="google.visualization.Table"
+                data-sgvizler-chart-options=""
+                data-sgvizler-log="2"></div>
         </div>
     </div>
-
 
 
     <div class="row">
         <h2>MEPS (from 10th legislature) by gender</h2>
         <div class="col-md-12">
+            
         </div>
     </div>
 
@@ -88,19 +88,135 @@
         </div>
     </div>
 
+    <!-- A Valdier -->
     <div class="row">
-        <h2>MEPS evolution par legislature and per gender (column chart)</h2>
         <div class="col-md-12">
-            <span>Column chart with stack</span>
+            <div id="dashboard-Legislature_Gender_Evolution" 
+            data-sgvizler-query="
+                    PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
+                    PREFIX dcterms: <http://purl.org/dc/terms/>
+                    PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                    PREFIX org: <http://www.w3.org/ns/org#>
+                    PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+                    PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+                    PREFIX eli: <http://data.europa.eu/eli/ontology#>
+                    PREFIX dcat: <http://www.w3.org/ns/dcat#>
+                    PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+                    Select (CONCAT(?Start_Year,'-',?End_Year) as ?Period) (count(?FEMALE) as ?Gender_FEMALE) (count(?MALE) as ?Gender_MALE) (count(?Others) as ?Gender_Others)
+                    Where {
+                        ?mep a foaf:Person .
+                        ?mep org:hasMembership ?partyMembership .
+                        OPTIONAL{
+                            ?mep vcard:hasGender ?Gender .
+                            FILTER(STRAFTER(str(?Gender),'human-sex/') = 'MALE')
+                            BIND(STRAFTER(str(?Gender),'human-sex/') as ?MALE)    
+                        }
+                        OPTIONAL{
+                            ?mep vcard:hasGender ?Gender .
+                            FILTER(STRAFTER(str(?Gender),'human-sex/') = 'FEMALE')
+                            BIND(STRAFTER(str(?Gender),'human-sex/') as ?FEMALE)    
+                        }
+                        OPTIONAL{
+                            ?mep vcard:hasGender ?Gender .
+                            FILTER(STRAFTER(str(?Gender),'human-sex/') != 'FEMALE')
+                            FILTER(STRAFTER(str(?Gender),'human-sex/') != 'MALE')
+                            BIND(STRAFTER(str(?Gender),'human-sex/') as ?Others)
+                        }
+                        ?partyMembership a org:Membership .
+                        ?partyMembership org:organization ?pt .
+                        ?pt a <http://data.europa.eu/eli/eli-draft-legislation-ontology#ParliamentaryTerm> .
+                        ?pt a org:Organization .
+                        OPTIONAL {
+                            ?pt dcterms:temporal/dcat:startDate ?pt_temporal_start_date .
+                            BIND(STRBEFORE(str(?pt_temporal_start_date),'-') as ?Start_Year)
+                        }
+                        OPTIONAL {
+                            ?pt dcterms:temporal/dcat:endDate ?pt_temporal_end_date .        
+                        }
+                        BIND(IF(!BOUND(?pt_temporal_end_date),'2024',STRBEFORE(str(?pt_temporal_end_date),'-')) as ?End_Year)
+                        ?partyMembership org:role <https://data.europarl.europa.eu/def/ep-roles/MEMBER_PARLIAMENT> .
+                    }
+                    Group By ?Start_Year ?End_Year
+                    Order By ASC(?Start_Year)
+                " 
+                data-sgvizler-endpoint="http://graphdb.sparna.fr/repositories/ep_dashboard"
+                data-sgvizler-chart="google.visualization.ColumnChart"
+                data-sgvizler-chart-options="role=annotation|isStacked=true|title=MEPS evolution par legislature and per gender"
+                data-sgvizler-log="2"
+                >
+            </div>
+        </div>
+        
+        <div class="col-md-12">
+            <div id="dashboard_MEP_Legislature_Political"
+                data-sgvizler-query="PREFIX foaf: <http://xmlns.com/foaf/0.1/>
+PREFIX org: <http://www.w3.org/ns/org#>
+PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+PREFIX dcat: <http://www.w3.org/ns/dcat#>
+Select (CONCAT('[',str(?Start_Year),'-',str(?End_Year),']') as ?Period) (COUNT(?bigBodyLabel_PPE) as ?PPE) (COUNT(?bigBodyLabel_ECR) as ?ECR) (COUNT(?bigBodyLabel_NI) as ?NI) (COUNT(?bigBodyLabel_Verts_ALE) as ?Verts_ALE) (COUNT(?bigBodyLabel_SD) as ?SD) (COUNT(?bigBodyLabel_Renew) as ?Renew) (COUNT(?bigBodyLabel_The_Left) as ?The_Left) (COUNT(?bigBodyLabel_Patriots) as ?Patriots) (COUNT(?bigBodyLabel_ID) as ?ID) (COUNT(?bigBodyLabel_ESN) as ?ESN)
+Where {
+    {
+        Select DISTINCT ?mep ?bigBodyLabel_PPE ?bigBodyLabel_ECR 
+        				?bigBodyLabel_NI ?bigBodyLabel_Verts_ALE ?bigBodyLabel_SD ?bigBodyLabel_Renew ?bigBodyLabel_The_Left ?bigBodyLabel_Patriots 
+        				?bigBodyLabel_ID ?bigBodyLabel_ESN ?mStart_Date ?mEnd_Date
+        Where  
+        {
+            ?mep a foaf:Person .
+            ?mep org:hasMembership ?partyMembership .
+            ?partyMembership a org:Membership .
+            ?partyMembership org:role <https://data.europarl.europa.eu/def/ep-roles/MEMBER> .
+            ?partyMembership org:organization ?corporateBody .
+            BIND(NOW() as ?CurrentDate)
+            OPTIONAL {?partyMembership org:memberDuring/dcat:startDate ?mStart_Date . }
+            OPTIONAL {?partyMembership org:memberDuring/dcat:endDate ?mEnd_Date .}
+            ?corporateBody org:classification <https://data.europarl.europa.eu/def/ep-entities/EU_POLITICAL_GROUP> .
+            ?corporateBody dcterms:isVersionOf ?bigBody .
+            #FILTER(?mep = <https://data.europarl.europa.eu/person/1023>)
+            OPTIONAL {?bigBody rdfs:label ?bigBodyLabel_PPE . FILTER(?bigBodyLabel_PPE = 'PPE')}
+            OPTIONAL {?bigBody rdfs:label ?bigBodyLabel_ECR . FILTER(?bigBodyLabel_ECR = 'ECR')}
+            OPTIONAL {?bigBody rdfs:label ?bigBodyLabel_NI . FILTER(?bigBodyLabel_NI = 'NI')}
+            OPTIONAL {?bigBody rdfs:label ?bigBodyLabel_Verts_ALE . FILTER(?bigBodyLabel_Verts_ALE = 'Verts/ALE')}
+            OPTIONAL {?bigBody rdfs:label ?bigBodyLabel_SD . FILTER(?bigBodyLabel_SD = 'S&D')}
+            OPTIONAL {?bigBody rdfs:label ?bigBodyLabel_Renew . FILTER(?bigBodyLabel_Renew = 'Renew')}
+            OPTIONAL {?bigBody rdfs:label ?bigBodyLabel_The_Left . FILTER(?bigBodyLabel_The_Left = 'The Left')}
+            OPTIONAL {?bigBody rdfs:label ?bigBodyLabel_Patriots . FILTER(?bigBodyLabel_Patriots = 'Patriots')}
+            OPTIONAL {?bigBody rdfs:label ?bigBodyLabel_ID . FILTER(?bigBodyLabel_ID = 'ID')}
+            OPTIONAL {?bigBody rdfs:label ?bigBodyLabel_ESN . FILTER(?bigBodyLabel_ESN = 'ESN') }    
+        }
+        Order by ?mep
+    }
+    # Legislature
+    {
+        Select ?mep ?Start_date ?End_date ?Start_Year ?End_Year
+        Where {
+            ?mep a foaf:Person .
+            ?mep org:hasMembership ?partyMembership .
+            ?partyMembership a org:Membership .
+            ?partyMembership org:organization ?pt .
+            ?pt a <http://data.europa.eu/eli/eli-draft-legislation-ontology#ParliamentaryTerm> .
+            ?pt a org:Organization .
+            BIND(NOW() as ?CurrentDate)
+            OPTIONAL {?pt dcterms:temporal/dcat:startDate ?Start_date . BIND(YEAR(?Start_date) as ?Start_Year)}
+            OPTIONAL {?pt dcterms:temporal/dcat:endDate ?Enddate .}
+            BIND(IF(!BOUND(?Enddate),?CurrentDate,?Enddate) as ?End_date)
+            BIND(YEAR(?End_date) as ?End_Year)
+            ?partyMembership org:role <https://data.europarl.europa.eu/def/ep-roles/MEMBER_PARLIAMENT> .
+            #FILTER(?mep = <https://data.europarl.europa.eu/person/1023>)
+        }
+        Order By ?Start_date
+    }
+    FILTER(?mEnd_Date <= ?End_date && ?mStart_Date >= ?Start_date)
+}
+Group By ?Start_Year ?End_Year
+Order By ASC(?Start_Year)"
+                data-sgvizler-endpoint="http://graphdb.sparna.fr/repositories/ep_dashboard"
+                data-sgvizler-chart="google.visualization.ColumnChart"
+                data-sgvizler-chart-options="isStacked=percent"
+                data-sgvizler-log="2">
+            </div>
         </div>
     </div>
-
-    <div class="row">
-        <h2>MEPS evolution par legislature and per political party (column chart)</h2>
-        <div class="col-md-12">
-            <span>Column chart with stack</span>
-        </div>
-
 
     <!--
 
@@ -124,13 +240,42 @@
 
     -->
 
-    </div>
-
+    <!-- A Valdier -->
     <div class="row">
         <h2>Number of documents per type per year</h2>
         <div class="col-md-12">
-            <span>Column chart with stack</span>
-        </div>
+            <div id="dashboard-DocumentTypeYear" 
+                         data-sgvizler-query="PREFIX epvoc: <https://data.europarl.europa.eu/def/epvoc#>
+                        PREFIX skos: <http://www.w3.org/2004/02/skos/core#>
+                        PREFIX eli: <http://data.europa.eu/eli/ontology#>
+                        Select ?Year (count(?Annex) as ?Cnt_Annex) (count(?Interpellation) as ?Cnt_Interpellation) (count(?Motion_Resolution_OralQuestion) as ?Cnt_Motion_Resolution_OralQuestion) (count(?Report) as ?Cnt_Report) (count(?Priority_Written_Question) as ?Cnt_Priority_Written_Question) (count(?Erratum) as ?Ctn_Erratum) (count(?Joint_Motion_Resolution) as ?Joint_Motion_Resolution) (count(?ListAmendments) as ?Ctn_ListAmendments) (count(?Motion_Resolution) as ?Ctn_Motion_Resolution) (count(?Oral_Question) as ?Cnt_Oral_Question) (count(?Write_Answer) as ?Cnt_Write_Answer) (count(?Write_Question) as ?Cnt_Write_Question)
+                        Where {
+                            ?work a eli:Work .
+                            ?work eli:work_type ?workType .
+                            ?work eli:date_document ?DateDocument .
+                            BIND(STRBEFORE(STR(?DateDocument),'-') as ?Year)
+                            OPTIONAL {?workType skos:prefLabel ?Annex . FILTER(STR(?Annex) = 'Annex')}
+                            OPTIONAL {?workType skos:prefLabel ?Interpellation . FILTER(STR(?Interpellation) = 'EP major interpellation')}
+                            OPTIONAL {?workType skos:prefLabel ?Motion_Resolution_OralQuestion . FILTER(STR(?Motion_Resolution_OralQuestion) = 'EP motion for resolution – oral questions')}
+                            OPTIONAL {?workType skos:prefLabel ?Report . FILTER(STR(?Report) = 'EP plenary report')}
+                            OPTIONAL {?workType skos:prefLabel ?Priority_Written_Question . FILTER(STR(?Priority_Written_Question) = 'EP priority written question')}
+                            OPTIONAL {?workType skos:prefLabel ?Erratum . FILTER(STR(?Erratum) = 'Erratum')}
+                            OPTIONAL {?workType skos:prefLabel ?Joint_Motion_Resolution . FILTER(STR(?Joint_Motion_Resolution) = 'Joint motion for a resolution')}
+                            OPTIONAL {?workType skos:prefLabel ?ListAmendments . FILTER(STR(?ListAmendments) = 'List of amendments')}
+                            OPTIONAL {?workType skos:prefLabel ?Motion_Resolution . FILTER(STR(?Motion_Resolution) = 'Motion for a resolution')}
+                            OPTIONAL {?workType skos:prefLabel ?Oral_Question . FILTER(STR(?Oral_Question) = 'Oral question')}
+                            OPTIONAL {?workType skos:prefLabel ?Write_Answer . FILTER(STR(?Write_Answer) = 'Written answer to an EP question for written answer')}
+                            OPTIONAL {?workType skos:prefLabel ?Write_Question . FILTER(STR(?Write_Question) = 'Written question')}
+                        }
+                        GROUP BY ?Year
+                        ORDER BY ?Year
+                    " 
+                    data-sgvizler-endpoint="http://graphdb.sparna.fr/repositories/ep_dashboard"
+                    data-sgvizler-chart="google.visualization.ColumnChart"
+                    data-sgvizler-chart-options="isStacked=true|title=Number of documents per type per year"
+                    data-sgvizler-log="2">
+            </div>
+        </div>        
     </div>
 
     <div class="row">
@@ -143,7 +288,33 @@
     <div class="row">
         <h2>Number of meetings per year</h2>
         <div class="col-md-12">
-            <span>Column chart</span>
+            <div id="dashboard-Meetings_Year" 
+                data-sgvizler-query="PREFIX dcterms: <http://purl.org/dc/terms/>
+PREFIX epvoc: <https://data.europarl.europa.eu/def/epvoc#>
+PREFIX eli-dl: <http://data.europa.eu/eli/eli-draft-legislation-ontology#>
+Select (str(?activity_Year) as ?Year) (COUNT(?Meeting_PLENARY_DEBATE) as ?PLENARY_DEBATE) (COUNT(?Meeting_PLENARY_VOTE) as ?PLENARY_VOTE) (COUNT(?Meeting_PLENARY_PART_SESSION) as ?PLENARY_PART_SESSION) (COUNT(?Meeting_PLENARY_SITTING) as ?PLENARY_SITTING) (COUNT(?Meeting_MEETING_PART) as ?MEETING_PART) (COUNT(?Meeting_PLENARY_VOTE_EXPLANATIONS) as ?PLENARY_VOTE_EXPLANATIONS) (COUNT(?Meeting_PLENARY_ACTIVITY) as ?PLENARY_ACTIVITY)
+Where {
+    ?activity a eli-dl:Activity .
+    ?activity eli-dl:had_activity_type ?ActivityType .
+    ?activity eli-dl:activity_date ?activity_date .
+    BIND(YEAR(?activity_date) as ?activity_Year )
+    ?activity (epvoc:scheduledIn*) ?Foreseen .
+    ?Foreseen eli-dl:had_activity_type ?Foreseen_Type .
+    FILTER(?Foreseen_Type NOT IN(<https://data.europarl.europa.eu/def/ep-activities/PLENARY_VOTE_RESULTS>) )
+    OPTIONAL {?Foreseen_Type dcterms:identifier ?Meeting_PLENARY_DEBATE . FILTER(?Meeting_PLENARY_DEBATE = 'PLENARY_DEBATE')}
+    OPTIONAL {?Foreseen_Type dcterms:identifier ?Meeting_PLENARY_VOTE . FILTER(?Meeting_PLENARY_VOTE = 'PLENARY_VOTE')}
+    OPTIONAL {?Foreseen_Type dcterms:identifier ?Meeting_PLENARY_PLENARY_PART_SESSION . FILTER(?Meeting_PLENARY_PART_SESSION = 'PLENARY_PART_SESSION')}
+    OPTIONAL {?Foreseen_Type dcterms:identifier ?Meeting_PLENARY_SITTING . FILTER(?Meeting_PLENARY_SITTING= 'PLENARY_SITTING')}
+    OPTIONAL {?Foreseen_Type dcterms:identifier ?Meeting_MEETING_PART . FILTER(?Meeting_MEETING_PART = 'MEETING_PART')}
+    OPTIONAL {?Foreseen_Type dcterms:identifier ?Meeting_PLENARY_VOTE_EXPLANATIONS . FILTER(?Meeting_PLENARY_VOTE_EXPLANATIONS = 'PLENARY_VOTE_EXPLANATIONS')}
+    OPTIONAL {?Foreseen_Type dcterms:identifier ?Meeting_PLENARY_ACTIVITY . FILTER(?Meeting_PLENARY_ACTIVITY = 'PLENARY_ACTIVITY')}
+}
+Group By ?activity_Year
+Order By ?activity_Year "
+                data-sgvizler-endpoint="http://graphdb.sparna.fr/repositories/ep_dashboard"
+                data-sgvizler-chart="google.visualization.ColumnChart"
+                data-sgvizler-chart-options="isStacked=true|title=Number of meetings per year"
+                data-sgvizler-log="2"></div>
         </div>
     </div>
 
@@ -153,11 +324,10 @@
         <div class="col-md-12">
         </div>
     </div>
-
     <!--SCRIPT-->
     <script>
         // sgvizler2.showTabHtmlAndScript("result");
-
+        
         $(function() {
             sgvizler2.containerDrawAll();
         });
