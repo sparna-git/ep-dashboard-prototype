@@ -196,7 +196,7 @@ Group By ?Start_Year ?End_Year
 Order By ASC(?Start_Year)"
                 data-sgvizler-endpoint="http://graphdb.sparna.fr/repositories/ep_dashboard"
                 data-sgvizler-chart="google.visualization.ColumnChart"
-                data-sgvizler-chart-options="isStacked=percent"
+                data-sgvizler-chart-options="isStacked=percent|title=MEPS evolution par legislature and per political party"
                 data-sgvizler-log="2">
             </div>
         </div>
@@ -310,8 +310,8 @@ Where {
 Group By ?activity_Year
 Order By ?activity_Year "
                 data-sgvizler-endpoint="http://graphdb.sparna.fr/repositories/ep_dashboard"
-                data-sgvizler-chart="google.visualization.ColumnChart"
-                data-sgvizler-chart-options="isStacked=true|title=Number of meetings per year"
+                data-sgvizler-chart="google.visualization.LineChart"
+                data-sgvizler-chart-options="lineWidth=3|title=Number of meetings per year"
                 data-sgvizler-log="2"></div>
         </div>
     </div>
