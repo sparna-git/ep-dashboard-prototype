@@ -65,32 +65,6 @@
     <div class="row">
         <h2>MEPS (from 10th legislature) by gender</h2>
         <div class="col-md-12">
-            
-        </div>
-    </div>
-
-    <div class="row">
-        <h2>MEPS (from 10th legislature) by country</h2>
-        <div class="col-md-12">
-        </div>
-    </div>
-
-    <div class="row">
-        <h2>MEPS (from 10th legislature) by political party</h2>
-        <div class="col-md-12">
-        </div>
-    </div>
-
-    <div class="row">
-        <h2>Documents by big category</h2>
-        <div class="col-md-12">
-            v2
-        </div>
-    </div>
-
-    <!-- A Valdier -->
-    <div class="row">
-        <div class="col-md-12">
             <div id="dashboard-Legislature_Gender_Evolution" 
             data-sgvizler-query="
                     PREFIX vcard: <http://www.w3.org/2006/vcard/ns#>
@@ -146,7 +120,16 @@
                 >
             </div>
         </div>
-        
+    </div>
+
+    <div class="row">
+        <h2>MEPS (from 10th legislature) by country</h2>
+        <div class="col-md-12">
+        </div>
+    </div>
+
+    <div class="row">
+        <h2>MEPS (from 10th legislature) by political party</h2>
         <div class="col-md-12">
             <div id="dashboard_MEP_Legislature_Political"
                 data-sgvizler-query="PREFIX foaf: <http://xmlns.com/foaf/0.1/>
@@ -158,8 +141,8 @@ Select (CONCAT('[',str(?Start_Year),'-',str(?End_Year),']') as ?Period) (COUNT(?
 Where {
     {
         Select DISTINCT ?mep ?bigBodyLabel_PPE ?bigBodyLabel_ECR 
-        				?bigBodyLabel_NI ?bigBodyLabel_Verts_ALE ?bigBodyLabel_SD ?bigBodyLabel_Renew ?bigBodyLabel_The_Left ?bigBodyLabel_Patriots 
-        				?bigBodyLabel_ID ?bigBodyLabel_ESN ?mStart_Date ?mEnd_Date
+                        ?bigBodyLabel_NI ?bigBodyLabel_Verts_ALE ?bigBodyLabel_SD ?bigBodyLabel_Renew ?bigBodyLabel_The_Left ?bigBodyLabel_Patriots 
+                        ?bigBodyLabel_ID ?bigBodyLabel_ESN ?mStart_Date ?mEnd_Date
         Where  
         {
             ?mep a foaf:Person .
@@ -199,7 +182,8 @@ Where {
             BIND(NOW() as ?CurrentDate)
             OPTIONAL {?pt dcterms:temporal/dcat:startDate ?Start_date . BIND(YEAR(?Start_date) as ?Start_Year)}
             OPTIONAL {?pt dcterms:temporal/dcat:endDate ?Enddate .}
-            BIND(IF(!BOUND(?Enddate),?CurrentDate,?Enddate) as ?End_date)
+            # BIND(IF(!BOUND(?Enddate),?CurrentDate,?Enddate) as ?End_date)
+            BIND(IF(!BOUND(?Enddate),'2028-07-01'^^xsd:date,?Enddate) as ?End_date)
             BIND(YEAR(?End_date) as ?End_Year)
             ?partyMembership org:role <https://data.europarl.europa.eu/def/ep-roles/MEMBER_PARLIAMENT> .
             #FILTER(?mep = <https://data.europarl.europa.eu/person/1023>)
@@ -215,6 +199,20 @@ Order By ASC(?Start_Year)"
                 data-sgvizler-chart-options="isStacked=percent"
                 data-sgvizler-log="2">
             </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <h2>Documents by big category</h2>
+        <div class="col-md-12">
+
+        </div>
+    </div>
+
+    <!-- A Valdier -->
+    <div class="row">
+        <div class="col-md-12">
+            
         </div>
     </div>
 
